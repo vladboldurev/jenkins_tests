@@ -25,10 +25,6 @@ dependencies {
     )
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8';
-}
-
 allure {
     report {
         version.set("2.17.3")
@@ -44,7 +40,12 @@ allure {
     }
 }
 
-test {
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8';
+}
+
+tasks.withType(Test) {
     useJUnitPlatform()
     testLogging {
         lifecycle {
@@ -53,3 +54,10 @@ test {
         }
     }
 }
+
+task demoqa_test(type: Test) {
+    useJUnitPlatform {
+        includeTags "demoqa"
+    }
+}
+
