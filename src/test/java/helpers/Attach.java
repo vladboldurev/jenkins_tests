@@ -4,7 +4,10 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -32,5 +35,26 @@ public class Attach {
                 "Browser console log",
                 String.join("\n", Selenide.getWebDriverLogs(BROWSER))
         );
+    }
+
+    @Attachment
+    public static String addVideo() {
+        return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
+                + getVideoUrl(getSessionId())
+                + "' type='video/mp4'></video></body></html>";
+    }
+
+    public static URL getVideoUrl(String sessionId) {
+        String videoUrl = "https://selenoid.autotests.cloud/video/" + sessionId + ".mp4";
+        try {
+            return new URL(videoUrl);
+        } catch (MalformedURLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getSessionId() {
+        return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 }
