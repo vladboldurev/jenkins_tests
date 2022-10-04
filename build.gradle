@@ -46,6 +46,7 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
+    systemProperties(System.getProperties())
     useJUnitPlatform()
     testLogging {
         lifecycle {
@@ -58,6 +59,12 @@ tasks.withType(Test) {
 task demoqa_test(type: Test) {
     useJUnitPlatform {
         includeTags "demoqa"
+    }
+}
+
+task system_proprties(type: Test) {
+    useJUnitPlatform {
+        includeTags "systemProprties"
     }
 }
 
