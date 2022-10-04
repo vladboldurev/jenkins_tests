@@ -11,5 +11,6 @@ public class SystemPropertiesTest {
     void systemTest() {
         String browser = System.getProperty("browser");
         System.out.println("browser: " + browser);
+        System.out.println(System.getProperty("any_text"));
     }
 }
