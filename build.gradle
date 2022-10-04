@@ -18,7 +18,9 @@ dependencies {
     testImplementation(
             "com.codeborne:selenide:$selenideVersion",
             "org.junit.jupiter:junit-jupiter:$junitVersion",
-            "io.qameta.allure:allure-selenide:$allureVersion"
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.aeonbits.owner:owner:1.0.4"
+
     )
     testRuntimeOnly(
             "org.slf4j:slf4j-simple:2.0.0",
@@ -68,3 +70,9 @@ task system_properties(type: Test) {
     }
 }
 
+
+task owner(type: Test) {
+    useJUnitPlatform {
+        includeTags "owner"
+    }
+}
